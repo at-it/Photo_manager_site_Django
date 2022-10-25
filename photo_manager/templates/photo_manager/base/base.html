@@ -1,0 +1,24 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %} Photo Manager {% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'photo_manager/styles/base.css' %}">
+    {% block site_css %} {% endblock %}
+</head>
+
+<body rel="stylesheet" href="{% static 'photo_manager/styles/base.css' %}">
+    <header>
+        <nav><a href='/photo-manager/' id="main-logo">Photo Manager</a></nav>
+    </header>
+    <main>
+        {% block body %} {% endblock %}
+    </main>
+</body>
+
+</html>

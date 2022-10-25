@@ -1,0 +1,20 @@
+{% extends 'photo_manager/base/base.html' %}
+
+{% load static %}
+{% load photo_manager_extras %}
+
+{% block title %}
+Photo Manager
+{% endblock %}
+
+{% block body %}
+<section>
+    <ol>
+        {% for option in options %}
+            {% with 'photo_manager/options/'|add_str:option.label as option_link %}
+                {% include 'photo_manager/includes/option-item.html' with option_name=option.label option_link=option_link %}
+            {% endwith %}
+        {% endfor %}
+    </ol>
+</section>
+{% endblock %}

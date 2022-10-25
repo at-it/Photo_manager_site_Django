@@ -1,0 +1,24 @@
+:root{
+    --global-font: Calibri;
+}
+
+body {
+    font-family: var(--global-font);
+    color: azure;
+    margin: 0;
+    background-color: black;
+}
+
+#main-logo {
+    color: cadetblue;
+    font-weight: bold;
+}
+
+.button-option {
+    background-color: cadetblue;
+    font-family: var(--global-font);
+}
+
+#list-option{
+    font-family: var(--global-font);
+}
