@@ -1,0 +1,17 @@
+{% extends 'photo_manager/base/base.html' %}
+
+{% block body %}
+
+<div>
+
+    <form action="{% url 'option-create' %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <ul>
+            {{form.as_ul}}
+        </ul>
+        <button>Add Photo</button>
+    </form>
+
+</div>
+
+{% endblock %}

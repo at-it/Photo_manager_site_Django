@@ -1,9 +1,5 @@
-from pickle import LIST
-from unittest.util import _MAX_LENGTH
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-
-# Create your models here.
 
 
 class Photo(models.Model):
@@ -12,7 +8,7 @@ class Photo(models.Model):
     width = models.IntegerField()
     height = models.IntegerField()
     color = models.CharField(max_length=100)
-    URL = models.ImageField(upload_to='images')
+    url = models.ImageField(upload_to='images')
 
 
 class Option(models.TextChoices):
@@ -20,3 +16,4 @@ class Option(models.TextChoices):
     CREATE = 'CR', _('Create')
     UPDATE = 'UP', _('Update')
     DELETE = 'DL', _('Delete')
+    INITIALIZE_DB = 'IB', _('Initialize-database')

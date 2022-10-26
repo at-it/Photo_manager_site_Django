@@ -1,0 +1,15 @@
+{% extends 'photo_manager/base/base.html' %}
+
+{% block body %}
+<section>
+    <ol>
+        {% for photo in photos %}
+        <p> {{ photo.url }}</p>
+            <img src={{ photo.url }}>
+        {% empty %}
+        <p>Sorry, no images found in the database. Please <a href="{% url 'option-create' %}">add manually</a> or <a
+                href="{% url 'option-initialize-database' %}">initalize the database</a>.</p>
+        {% endfor %}
+    </ol>
+</section>
+{% endblock %}

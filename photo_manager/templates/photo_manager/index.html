@@ -11,7 +11,7 @@ Photo Manager
 <section>
     <ol>
         {% for option in options %}
-            {% with 'photo_manager/options/'|add_str:option.label as option_link %}
+            {% with 'options/'|add_str:option.label|lower as option_link %}
                 {% include 'photo_manager/includes/option-item.html' with option_name=option.label option_link=option_link %}
             {% endwith %}
         {% endfor %}

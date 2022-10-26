@@ -22,3 +22,11 @@ body {
 #list-option{
     font-family: var(--global-font);
 }
+
+a:visited {
+    color: skyblue;
+}
+
+a:link{
+    color:cadetblue;
+}
