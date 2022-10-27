@@ -42,3 +42,7 @@ a:link {
     border-right: 1px solid var(--global-tertiary-color);
     border-bottom: 1px solid var(--global-tertiary-color);
 }
+
+#cancel-link{
+    color: var(--global-primary-color);
+}

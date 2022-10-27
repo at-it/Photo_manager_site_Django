@@ -75,18 +75,17 @@ def modify(request):
 
 def delete_confirmation(request, photo_ID):
     context = {'photo_ID':photo_ID}
-    return request ('photo_manager/communication/delete_confirmation.html', context)
+    return render (request, 'photo_manager/communication/delete_confirmation.html', context)
     
 
 def delete(request, photo_ID):
     photos = Photo.objects.all()
     photo = Photo.objects.get(photo_ID=photo_ID)
-    context = {'photos': photos}
 
     if request.method == 'POST':
         photo.delete()
 
-    return render(request, 'photo_manager/options/modify.html', context)
+    return redirect('option-modify')
 
 
 def update(request, photo_ID):

@@ -1,0 +1,19 @@
+:root {
+    --global-font: Calibri;
+    --global-primary-color: cadetblue;
+    --global-secondary-color: skyblue;
+    --global-tertiary-color: azure;
+}
+
+body {
+    background-color: black;
+    color: azure
+}
+
+a:visited {
+    color: var(--global-secondary-color);
+}
+
+a:link {
+    color: var(--global-primary-color);
+}
