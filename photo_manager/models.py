@@ -14,8 +14,7 @@ class Photo(models.Model):
 
 class Option(models.TextChoices):
     SHOW = 'SH', _('Show')
-    LIST = 'LI', _('List')
+    READ = 'RE', _('Read')
     CREATE = 'CR', _('Create')
-    UPDATE = 'UP', _('Update')
-    DELETE = 'DL', _('Delete')
+    MODIFY = 'UP', _('Modify')
     INITIALIZE_DB = 'IB', _('Initialize-database')

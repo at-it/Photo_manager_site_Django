@@ -8,30 +8,36 @@ from io import BytesIO
 
 
 def index(request):
-    return render(request, 'photo_manager/index.html', {'options': Option})
+    context = {'options': Option}
+    return render(request, 'photo_manager/index.html', context)
 
 
 def show(request):
     photos = Photo.objects.all()
-    return render(request, 'photo_manager/options/show.html', {'photos': photos})
+    context = {'photos': photos}
+    return render(request, 'photo_manager/options/show.html', context)
 
 
-def list(request):
+def read(request):
     photos = Photo.objects.all()
     field_names = [f.name for f in Photo._meta.get_fields()]
-    context = {'photos': photos, 'field_names': field_names}
+    object_fields = ['photo.' + field for field in field_names]
+    context = {'photos': photos, 'field_names': field_names,
+               'object_fields': object_fields}
 
-    return render(request, 'photo_manager/options/list.html', context)
+    return render(request, 'photo_manager/options/read.html', context)
 
 
 def create(request):
 
     if request.method == 'GET':
         photo_form = PhotoFormCreation()
-        return render(request, 'photo_manager/options/create.html', {'form': photo_form})
+        context = {'form': photo_form}
+        return render(request, 'photo_manager/options/create.html', context)
 
     if request.method == 'POST':
         photo_form = PhotoFormCreation(request.POST, request.FILES)
+        context = {'form': photo_form}
 
         if photo_form.is_valid():
             photo = photo_form.save(commit=False)
@@ -45,21 +51,47 @@ def create(request):
 
             return redirect('photo-added-successfully')
 
-    return render(request, 'photo_manager/options/create.html', {'form': photo_form})
+    return render(request, 'photo_manager/options/create.html')
 
 
-def update(request):
-    return render(request, 'photo_manager/options/update.html')
-
-
-def delete(request):
+def modify(request):
     photos = Photo.objects.all()
+    context = {'photos': photos}
+    return render(request, 'photo_manager/options/modify.html', context)
 
-    if request.method == 'GET':
-        return render(request, 'photo_manager/options/delete.html', {'photos': photos})
+
+# def delete(request, photo_ID):
+#     photos = Photo.objects.all()
+#     photo = Photo.objects.get(photo_ID=photo_ID)
+
+#     if request.method == 'POST':
+#         photo = Photo.objects.get(photo_ID=photo_ID)
+#         photo.delete()
+#         context = {'photos': photos, 'photo_ID': photo_ID, 'photo': photo}
+#         return render(request, 'photo_manager/options/modify.html', context)
+
+#     redirect('option-modify')
+
+
+def delete_confirmation(request, photo_ID):
+    context = {'photo_ID':photo_ID}
+    return request ('photo_manager/communication/delete_confirmation.html', context)
+    
+
+def delete(request, photo_ID):
+    photos = Photo.objects.all()
+    photo = Photo.objects.get(photo_ID=photo_ID)
+    context = {'photos': photos}
 
     if request.method == 'POST':
-        return render(request, 'photo_manager/options/delete.html', {'photos': photos})
+        photo.delete()
+
+    return render(request, 'photo_manager/options/modify.html', context)
+
+
+def update(request, photo_ID):
+
+    redirect('option-modify')
 
 
 def initialize_database(request, number_of_photos=10):
@@ -80,12 +112,9 @@ def initialize_database(request, number_of_photos=10):
                 Photo.objects.create(title=photo['title'], album_ID=photo['albumId'],
                                      width=width, height=height, color='other', url=photo['url'])
 
-    return render(request, 'photo_manager/communication/initialize_database.html')
+    return render(request, 'photo_manager/options/initialize_database.html')
 
 
 def photo_added_successfully(request):
     return render(request, 'photo_manager/communication/photo_added_successfully.html')
 
-
-def delete_confirmation(request):
-    return render(request, 'photo_manager/communication/delete_confirmation.html')

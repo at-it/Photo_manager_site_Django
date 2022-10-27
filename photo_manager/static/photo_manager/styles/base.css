@@ -1,4 +1,4 @@
-:root{
+:root {
     --global-font: Calibri;
     --global-primary-color: cadetblue;
     --global-secondary-color: skyblue;
@@ -22,7 +22,7 @@ body {
     font-family: var(--global-font);
 }
 
-#list-option{
+#list-option {
     font-family: var(--global-font);
 }
 
@@ -31,14 +31,14 @@ a:visited {
 }
 
 a:link {
-    color:var(--global-primary-color);
+    color: var(--global-primary-color);
 }
 
 .photo_table td {
-    border-right: 1px solid  azure;
+    border-right: 1px solid var(--global-tertiary-color);
 }
 
 .photo_table th {
-    border-right: 1px solid azure;
-    border-bottom: 1px solid azure;
+    border-right: 1px solid var(--global-tertiary-color);
+    border-bottom: 1px solid var(--global-tertiary-color);
 }
