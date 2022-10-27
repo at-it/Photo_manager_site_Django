@@ -60,23 +60,10 @@ def modify(request):
     return render(request, 'photo_manager/options/modify.html', context)
 
 
-# def delete(request, photo_ID):
-#     photos = Photo.objects.all()
-#     photo = Photo.objects.get(photo_ID=photo_ID)
-
-#     if request.method == 'POST':
-#         photo = Photo.objects.get(photo_ID=photo_ID)
-#         photo.delete()
-#         context = {'photos': photos, 'photo_ID': photo_ID, 'photo': photo}
-#         return render(request, 'photo_manager/options/modify.html', context)
-
-#     redirect('option-modify')
-
-
 def delete_confirmation(request, photo_ID):
-    context = {'photo_ID':photo_ID}
-    return render (request, 'photo_manager/communication/delete_confirmation.html', context)
-    
+    context = {'photo_ID': photo_ID}
+    return render(request, 'photo_manager/communication/delete_confirmation.html', context)
+
 
 def delete(request, photo_ID):
     photos = Photo.objects.all()
@@ -93,7 +80,7 @@ def update(request, photo_ID):
     redirect('option-modify')
 
 
-def initialize_database(request, number_of_photos=10):
+def initialize_database(request, number_of_photos=30):
     database = API.get_json_from_site(
         'https://jsonplaceholder.typicode.com/photos')
 
@@ -116,4 +103,3 @@ def initialize_database(request, number_of_photos=10):
 
 def photo_added_successfully(request):
     return render(request, 'photo_manager/communication/photo_added_successfully.html')
-

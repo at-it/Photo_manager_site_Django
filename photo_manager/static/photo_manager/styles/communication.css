@@ -7,7 +7,8 @@
 
 body {
     background-color: black;
-    color: azure
+    color: azure;
+    font-family: var(--global-font);
 }
 
 a:visited {
