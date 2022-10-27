@@ -1,14 +1,32 @@
 {% extends 'photo_manager/base/base.html' %}
 
 {% block body %}
-<section>
-    <p>
+<br>
+<div>
+    <table class="photo_table">
+        <tr>
+            {% for field in field_names%}
+            <th>{{ field }}</th>
+            {% endfor %}
+        </tr>
+
         {% for photo in photos %}
-        <img src={{ photo.url }}>
+        <tr>
+            <td>{{ photo.photo_ID }} </td>
+            <td>{{ photo.title }} </td>
+            <td>{{ photo.album_ID }} </td>
+            <td>{{ photo.width }} </td>
+            <td>{{ photo.height }} </td>
+            <td>{{ photo.color }} </td>
+            <td>{{ photo.url }} </td>
+        </tr>
+
         {% empty %}
-    <p>Sorry, no images found in the database. Please <a href="{% url 'option-create' %}">add manually</a> or <a
-            href="{% url 'option-initialize-database' %}">initalize the database</a>.</p>
-    {% endfor %}
-    </p>
-</section>
+        <p>Sorry, no images found in the database. Please <a href="{% url 'option-create' %}">add manually</a> or <a
+                href="{% url 'option-initialize-database' %}">initalize the database</a>.</p>
+
+        </p>
+        {% endfor %}
+    </table>
+</div>
 {% endblock %}

@@ -2,7 +2,7 @@ from .models import Photo
 from django import forms
 
 
-class PhotoForm(forms.ModelForm):
+class PhotoFormCreation(forms.ModelForm):
     title = forms.CharField(max_length=200)
     album_ID = forms.IntegerField()
     url = forms.ImageField(label='Please upload your image')

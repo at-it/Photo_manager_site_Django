@@ -3,6 +3,7 @@ from django.utils.translation import gettext_lazy as _
 
 
 class Photo(models.Model):
+    photo_ID = models.AutoField(primary_key=True)
     title = models.CharField(max_length=200)
     album_ID = models.IntegerField()
     width = models.IntegerField()
@@ -12,6 +13,7 @@ class Photo(models.Model):
 
 
 class Option(models.TextChoices):
+    SHOW = 'SH', _('Show')
     LIST = 'LI', _('List')
     CREATE = 'CR', _('Create')
     UPDATE = 'UP', _('Update')

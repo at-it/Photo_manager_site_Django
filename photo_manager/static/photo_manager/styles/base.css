@@ -1,21 +1,24 @@
 :root{
     --global-font: Calibri;
+    --global-primary-color: cadetblue;
+    --global-secondary-color: skyblue;
+    --global-tertiary-color: azure;
 }
 
 body {
     font-family: var(--global-font);
-    color: azure;
+    color: var(--global-tertiary-color);
     margin: 0;
     background-color: black;
 }
 
 #main-logo {
-    color: cadetblue;
+    color: var(--global-primary-color);
     font-weight: bold;
 }
 
 .button-option {
-    background-color: cadetblue;
+    background-color: var(--global-primary-color);
     font-family: var(--global-font);
 }
 
@@ -24,13 +27,18 @@ body {
 }
 
 a:visited {
-    color: skyblue;
+    color: var(--global-secondary-color);
 }
 
-a:link{
-    color:cadetblue;
+a:link {
+    color:var(--global-primary-color);
 }
 
-.class{
-    display: inline;
+.photo_table td {
+    border-right: 1px solid  azure;
+}
+
+.photo_table th {
+    border-right: 1px solid azure;
+    border-bottom: 1px solid azure;
 }
