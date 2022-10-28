@@ -95,7 +95,7 @@ def update(request, photo_ID):
     return render(request, 'photo_manager/options/update.html', context)
 
 
-def initialize_database(request, number_of_photos=5):
+def initialize_database(request, number_of_photos=30):
     database = API.get_json_from_site(
         'https://jsonplaceholder.typicode.com/photos')
 
