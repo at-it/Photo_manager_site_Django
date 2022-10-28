@@ -5,12 +5,13 @@
 <div>
     <table class="photo_table">
         <tr>
-            {% for field in field_names%}
+            {% for field in field_names %}
             <th>{{ field }}</th>
             {% endfor %}
         </tr>
 
         {% for photo in photos %}
+      
         <tr>
             <td>{{ photo.photo_ID}} </td>
             <td>{{ photo.title }} </td>

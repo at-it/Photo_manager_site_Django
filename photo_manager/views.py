@@ -1,10 +1,13 @@
 from django.shortcuts import render, redirect
+
+from photo_manager.machine_learning import rgb2hex
 from .models import Option, Photo
 from .forms import PhotoFormCreation
 from .api import API
 from PIL import Image
 import requests
 from io import BytesIO
+from .machine_learning import DominantColorKMeansPredictor
 
 
 def index(request):
@@ -21,9 +24,7 @@ def show(request):
 def read(request):
     photos = Photo.objects.all()
     field_names = [f.name for f in Photo._meta.get_fields()]
-    object_fields = ['photo.' + field for field in field_names]
-    context = {'photos': photos, 'field_names': field_names,
-               'object_fields': object_fields}
+    context = {'photos': photos, 'field_names': field_names}
 
     return render(request, 'photo_manager/options/read.html', context)
 
@@ -47,6 +48,10 @@ def create(request):
             photo.width = width
             photo.height = height
             photo.color = 'other'
+            predictor = DominantColorKMeansPredictor()
+            r, g, b, *others = predictor.get_dominant_color(img)
+            color_hex = rgb2hex(r, g, b)
+            photo.color = color_hex
             photo.save()
 
             return redirect('photo-added-successfully')
@@ -78,10 +83,11 @@ def delete_confirmation(request, photo_ID):
 def update(request, photo_ID):
     photo = Photo.objects.get(photo_ID=photo_ID)
     photo_form = PhotoFormCreation(instance=photo)
-    context = {'photo_form':photo_form, 'photo_ID':photo_ID}
+    context = {'photo_form': photo_form, 'photo_ID': photo_ID}
 
     if request.method == 'POST':
-        photo_form = PhotoFormCreation(request.POST, request.FILES, instance=photo)
+        photo_form = PhotoFormCreation(
+            request.POST, request.FILES, instance=photo)
         if photo_form.is_valid():
             photo_form.save()
             return redirect('option-modify')
@@ -89,9 +95,11 @@ def update(request, photo_ID):
     return render(request, 'photo_manager/options/update.html', context)
 
 
-def initialize_database(request, number_of_photos=30):
+def initialize_database(request, number_of_photos=5):
     database = API.get_json_from_site(
         'https://jsonplaceholder.typicode.com/photos')
+
+    predictor = DominantColorKMeansPredictor()
 
     for photo_number, photo in enumerate(database):
         if photo_number < number_of_photos:
@@ -103,9 +111,10 @@ def initialize_database(request, number_of_photos=30):
                 image_url_stream = BytesIO(image_url_string)
                 img = Image.open(image_url_stream)
                 width, height = img.size
-
+                # r, g, b = predictor.get_dominant_color(img)
+                # color_hex = rgb2hex(r, g, b)
                 Photo.objects.create(title=photo['title'], album_ID=photo['albumId'],
-                                     width=width, height=height, color='other', url=photo['url'])
+                                     width=width, height=height, color="other", url=photo['url'])
 
     return render(request, 'photo_manager/options/initialize_database.html')
 
