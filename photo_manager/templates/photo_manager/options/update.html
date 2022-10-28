@@ -1,1 +1,15 @@
 {% extends 'photo_manager/base/base.html' %}
+
+{% block body %}
+
+<body>
+    <p>Are you sure you want to modify this photo?</p>
+    <form method="POST" action="{% url 'option-update' photo_ID %}" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ photo_form.as_p}}
+        <input type="submit" value="Confirm">
+        <a href="{% url 'option-modify' %}" id="cancel-link">Cancel</a>
+    </form>
+</body>
+
+{% endblock %}

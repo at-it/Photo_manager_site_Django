@@ -60,11 +60,6 @@ def modify(request):
     return render(request, 'photo_manager/options/modify.html', context)
 
 
-def delete_confirmation(request, photo_ID):
-    context = {'photo_ID': photo_ID}
-    return render(request, 'photo_manager/communication/delete_confirmation.html', context)
-
-
 def delete(request, photo_ID):
     photos = Photo.objects.all()
     photo = Photo.objects.get(photo_ID=photo_ID)
@@ -75,9 +70,23 @@ def delete(request, photo_ID):
     return redirect('option-modify')
 
 
-def update(request, photo_ID):
+def delete_confirmation(request, photo_ID):
+    context = {'photo_ID': photo_ID}
+    return render(request, 'photo_manager/communication/delete_confirmation.html', context)
 
-    redirect('option-modify')
+
+def update(request, photo_ID):
+    photo = Photo.objects.get(photo_ID=photo_ID)
+    photo_form = PhotoFormCreation(instance=photo)
+    context = {'photo_form':photo_form, 'photo_ID':photo_ID}
+
+    if request.method == 'POST':
+        photo_form = PhotoFormCreation(request.POST, request.FILES, instance=photo)
+        if photo_form.is_valid():
+            photo_form.save()
+            return redirect('option-modify')
+
+    return render(request, 'photo_manager/options/update.html', context)
 
 
 def initialize_database(request, number_of_photos=30):
